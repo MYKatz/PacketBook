@@ -1,165 +1,27 @@
-# Your StdLib Twilio Hub
+# PacketBook is still in early Beta.  Please use at your own risk
 
-Welcome to your Twilio Hub on StdLib!
+# PacketBook
 
-The goal of the Twilio Hub is to provide your project, team or company
-with a fully-functional, robust telephony hub for things like bots and
-customer support. Through StdLib, you're guaranteed that your infrastructure
-scales infinitely and you never have to manage servers. While it is necessary
-to write *some* code, StdLib is easy and malleable enough to be completely hackable
-to even the most junior developers.
+PacketBook is an "internet-less" Stellar wallet, using on text messaging.  This is mostly a proof-of-concept for how Stellar can be used to further financial inclusion in places with high cell phone ownership but low smartphone penetration, such as Kenya.  Inspired by MPesa.
 
-# Your Project
 
-The first thing you'll probably notice is your `functions/` directory. This is
-your StdLib function directory which maps directly to HTTP endpoints. There are
-six "out of the box" functions in your Twilio Hub.
+# Commands
+Just text any one of these commands to +16197225894
 
-- `__main__.js`
-- `voice/__main__.js`
-- `messaging/__main__.js`
-- `messaging/__notfound__.js`
-- `messaging/more.js`
-- `messaging/whoami.js`
+- Register
+  - This will generate a new address for you.  In order to use PacketBook, you'll need to activate this account with 0.5XLM.  You must be registered (and activated) to use any of the following commands.
+  - You will receive a pin.  Remember this, you will need it to send your Lumens anywhere.
+- Balance
+  - Returns your balance.  Returns 0 is account is not activated
+- Deposit
+  - Returns a deposit address.  Send lumens here to fund your account
+- Send <phone #> <amount> <PIN>
+  - <phone #> must be in area code + raw number format, ex: +19876543211
+  - Sends <amount> to the address associated with the given phone number, if said address exists.
+- Withdraw <stellar address> <amount> <pin>
+  - Sends <amount> to the given stellar address
 
-We'll go through these in the order listed here.
+# Inquiries
 
-## Function: `functions/__main__.js`
+Contact: matt@bounti.tech
 
-This is your main endpoint, corresponding to `https://<username>.lib.id/<service>/`.
-This is, of course, where `<username>` is your username and `<service>` is your service
-name.
-
-Any time a function has the filename `__main__.js`, the enclosing folder is
-used as the route name over HTTP. You can think of it like the default function
-for a specific directory.
-
-Note that when pushing to a development environment (or if you want to access
-  a specific version), this should be reached via:
-  `https://username.lib.id/service@dev/main` (if your dev environment is called
-  `dev`, also the default local environment name) or
-  `https://username.lib.id/service@0.0.0/main` (if your version is 0.0.0).
-
-### Usage
-
-This endpoint initiates a conversation with a specific telephone number via SMS.
-Just provide a number (via the `tel` parameter) to begin.
-
-With the [StdLib command line tools](https://github.com/stdlib/lib), you can
-test this using `$ lib . --tel [Telephone Number]`
-
-## Function: `functions/voice/__main__.js`
-
-This is the main HTTP Webhook handler for incoming phonecalls from Twilio.
-You'll set your Twilio Webhook handler to accept this using the URL:
-
-```
-dev environment:
-http://username.lib.id/service@dev/voice/
-
-production:
-http://username.lib.id/service/voice/
-```
-
-Where `username` is your StdLib username and `service` is the name of this
-service as its deployed.
-
-### Usage
-
-Simply point your Twilio number voice webhook to this URL. By default, it
-redirects any incoming calls to `process.env.FORWARD_NUMBER` (`"FORWARD_NUMBER"`
-in `env.json`.)
-
-## Function: `functions/messaging/__main__.js`
-
-This is the main HTTP Webhook handler for incoming SMS and MMS messages from
-Twilio. You'll set your Twilio Webhook handler to accept this using the URL:
-
-```
-dev environment:
-http://username.lib.id/service@dev/messaging/
-
-production:
-http://username.lib.id/service/messaging/
-```
-
-Where `username` is your StdLib username and `service` is the name of this
-service as its deployed.
-
-### Usage
-
-This function will dispatch other StdLib functions that you've built, namely
-the `functions/messaging/__notfound__.js`, `functions/messaging/more.js`
-and `functions/messaging/whoami.js` to begin with (unless you add more).
-
-## Function: `functions/messaging/__notfound__.js`
-
-This is the SMS / MMS "not found" handler. It also handles *any MMS messages*
-via the `media` parameter. If the message your Twilio Hub on StdLib receives
-can not be mapped to a named function (like `more` or `whoami`) this handler
-will be triggered.
-
-### Usage
-
-This handler outputs a string for simple messaging and development testing.
-You can test from your command line using:
-
-```shell
-$ lib .messaging.__notfound__ --body "My message"
-```
-
-Or for an MMS message,
-
-```shell
-$ lib .messaging.__notfound__ --media file:./path/to/myfile.jpg
-```
-
-## Function: `functions/messaging/more.js`
-
-This is the SMS handler for messages containing the word "more" (in any
-  capitalization variation) as their sole contents.
-
-All named functions will be dispatched similarly from `functions/messaging/__main__.js`,
-but this can be modified to suit your needs, specifically.
-
-### Usage
-
-This handler outputs a string for simple messaging and development testing.
-You can test from your command line using:
-
-```shell
-$ lib .messaging.more
-```
-
-## Function: `functions/messaging/whoami.js`
-
-This is the SMS handler for messages containing the word "whoami" (in any
-  capitalization variation) as their sole contents.
-
-It is meant to show the use of the `to` and `from` objects to show you can
-track originating number information.
-
-### Usage
-
-This handler outputs a string for simple messaging and development testing.
-You can test from your command line using:
-
-```shell
-$ lib .messaging.whoami
-```
-
-# Helpers
-
-You'll notice a `/helpers/` directory which contains a single function.
-You should store Twilio helpers here, like sending picture messages, videos,
-or any time you want to write logic that you don't want to repeat.
-
-## Helper: `helpers/send.js`
-
-Sends messages using [Twilio's NPM module](https://www.npmjs.com/package/twilio)
-and your account information from `env.json`.
-
-# That's it!
-
-We hope this has served as a welcoming introduction to your
-Twilio Hub project scaffold on [StdLib](https://stdlib.com) --- happy building!
