@@ -15,11 +15,11 @@ Just text any one of these commands to +16197225894
   - Returns your balance.  Returns 0 is account is not activated
 - Deposit
   - Returns a deposit address.  Send lumens here to fund your account
-- Send <phone #> <amount> <PIN>
-  - <phone #> must be in area code + raw number format, ex: +19876543211
-  - Sends <amount> to the address associated with the given phone number, if said address exists.
-- Withdraw <stellar address> <amount> <pin>
-  - Sends <amount> to the given stellar address
+- Send [phone number] [amount] [PIN]
+  - [phone number] must be in area code + raw number format, ex: +19876543211
+  - Sends [amount] to the address associated with the given phone number, if said address exists.
+- Withdraw [stellar address] [amount] [pin]
+  - Sends [amount] to the given stellar address
 
 # Inquiries
 
