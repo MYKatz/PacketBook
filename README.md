@@ -6,7 +6,6 @@ PacketBook is an "internet-less" Stellar wallet, using on text messaging.  This 
 
 
 # Commands
-Just text any one of these commands to +16197225894
 
 - Register
   - This will generate a new address for you.  In order to use PacketBook, you'll need to activate this account with 0.5XLM.  You must be registered (and activated) to use any of the following commands.
@@ -21,7 +20,4 @@ Just text any one of these commands to +16197225894
 - Withdraw [stellar address] [amount] [pin]
   - Sends [amount] to the given stellar address
 
-# Inquiries
-
-Contact: matt@bounti.tech
 
